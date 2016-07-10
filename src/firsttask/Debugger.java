@@ -1,7 +1,7 @@
 package firsttask;
 
+// for debug prints
 public class Debugger{
-    
     public static boolean debugStat = false;
     
     public static void isEnabled(){
