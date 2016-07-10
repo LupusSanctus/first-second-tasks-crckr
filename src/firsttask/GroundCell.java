@@ -1,23 +1,25 @@
 package firsttask;
 
-
 public class GroundCell {
     private CellState state;
     private int x;
     private int y;
     
-    //setters
-    public void setState(CellState st) {
-        this.state = st;
+    GroundCell(int row, int col, CellState state) {
+        this.x = row;
+        this.y = col;
+        this.state = state;
+    }
+       
+    public void setX(int x) {
+        this.x = x;
     }
     
-    public void setX(int a) {
-        this.x = a;
+    public void setY(int y) {
+        this.y = y;
     }
     
-    public void setY(int b) {
-        this.y = b;
+    public CellState getState() {
+        return this.state;
     }
-    
-
 }
