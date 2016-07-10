@@ -3,8 +3,7 @@ package firsttask;
 public class GroundVisor {
     private Ground ground;
     
-    // getter
-    public Ground getGroundVisor() {
+    public Ground getGround() {
         return ground;
     }
 
@@ -12,18 +11,19 @@ public class GroundVisor {
         this.ground = grnd;
     }
     
-    public boolean hasObstacles(int a, int b) {
+    public boolean hasObstacles(int x, int y) {
         if(Debugger.debugStat) {
             Debugger.info(ground.getLength());
             Debugger.info(ground.getWidth());
-            Debugger.info(a);
-            Debugger.info(b);
+            Debugger.info(x);
+            Debugger.info(y);
         }
        
-        if(ground.getLength()<a || ground.getWidth()<b) throw new GroundVisorException("Movement is out of bounds");
+        if(ground.getLength() < x || x < 0 || ground.getWidth() < y || y < 0)
+            throw new GroundVisorException("Movement is out of bounds or wrong inputcoordinates!");
         else {
-            System.out.println("No obstacles");            
-            return true;
+            System.out.println("No obstacles here:");            
+            return ground.getLandscape()[x][y].getState() == CellState.OCCUPIED;
         }
     }
 }
