@@ -1,15 +1,27 @@
 package firsttask;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*; 
 
-public class Rover implements Turnable, Moveable {
+public class Rover implements Turnable, Moveable, ProgramFileAware {
 
     private int x;
     private int y;
     private Direction direction;
+    private RoverCommandParser commandParser;
     
-    GroundVisor gv = new GroundVisor();
-
-    // getters
+    GroundVisor groundVisor = new GroundVisor();
+    
+    public void setX(int x) {
+        this.x = x;
+    }
+    
+    public void setY(int y) {
+        this.y = y;
+    }
+       
     public int getX() {
         return this.x;
     }
@@ -17,27 +29,47 @@ public class Rover implements Turnable, Moveable {
     public int getY() {
         return this.y;
     }
-     
-    public GroundVisor getGroundVisor() {
-        return gv;
+    
+    public GroundVisor getGround() {
+        return groundVisor;
     }
     
-    // basic methods
-    public void move(int a, int b) {
-        if(gv.hasObstacles(a, b)) {
-            this.x = a;
-            this.y = b;        
-            Formatter form = new Formatter();
-            form.format("Now my coordinates are (%d, %d)", x, y);
+    @Override
+    public void move(int x, int y) {
+        Formatter form = new Formatter();
+        if(!groundVisor.hasObstacles(x, y)) {
+            this.x = x;
+            this.y = y;        
+            form.format("now my coordinates are (%d, %d)", x, y);
             System.out.println(form);            
         } else {
-            System.out.println("Couldn`t make a movement - some obstacles"); 
+            form.format("Couldn`t make a movement - some obstacles are here(%d, %d)!", x, y);
+            System.out.println(form); 
         }
     }
     
+    @Override
     public void turnTo(Direction direct) {
-        direction = direct;
+        this.direction = direct;
         System.out.println("Now I`m going to the " + direction);      
     }
-
+    
+    @Override
+    public void executeProgramFile(String str) {
+        String buffer;
+        commandParser = new RoverCommandParser(this);
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(str));
+            while((buffer =  in.readLine()) != null) {
+                commandParser.readNextCommand(buffer).execute();
+            }
+            in.close();
+        }
+        catch(IOException e) {
+            e.getStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }       
+    }
 }
