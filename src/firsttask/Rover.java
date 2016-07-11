@@ -53,18 +53,27 @@ public class Rover implements Turnable, Moveable, ProgramFileAware {
         this.direction = direct;
         System.out.println("Now I`m going to the " + direction);      
     }
-    
+   
+    // devide the input file structe into two basic components: main text, subtext(import)
     @Override
-    public void executeProgramFile(String str) {
+    public void executeProgramFile(String fileName) {
         String buffer;
+        // two columns: command and arguments
+        String columns[];
+        
         commandParser = new RoverCommandParser(this);
         try {
-            BufferedReader in = new BufferedReader(new FileReader(str));
+            BufferedReader in = new BufferedReader(new FileReader(fileName));
             while((buffer =  in.readLine()) != null) {
-                commandParser.readNextCommand(buffer).execute();
+                columns = buffer.split("\t");
+                if(columns[0].equals("import")) { 
+                    executeProgramFile(columns[1]);
+                } else if(!columns[0].startsWith("#")) {
+                    commandParser.readNextCommand(columns[0], columns[1]).execute();
+                }
             }
             in.close();
-        }
+        } 
         catch(IOException e) {
             e.getStackTrace();
         }
