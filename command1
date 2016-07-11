@@ -1,0 +1,3 @@
+#line format: command, tab, argumetns
+turn	SOUTH
+move	1, 2
