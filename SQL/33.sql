@@ -1,0 +1,2 @@
+SELECT d.director_id, (SELECT SUBSTR(LASTNAME,1,LENGTH(LASTNAME)-1)||' '||SUBSTR(FIRSTNAME,1,1)||'.'||SUBSTR(MIDDLENAME,1,1)||'.' as "Фамилия И.О."
+FROM pers WHERE pers.pers_id = d.director_id) AS director_fio FROM depart d;
