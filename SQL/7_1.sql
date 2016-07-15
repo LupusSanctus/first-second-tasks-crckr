@@ -1,12 +1,12 @@
 CREATE OR REPLACE PROCEDURE NEW_EMP(
-	   in_empno IN EMP.EMPNO%TYPE,
-	   in_ename IN EMP.ENAME%TYPE,
-	   in_job IN EMP.JOB%TYPE,
-	   in_mgr IN EMP.MGR%TYPE,
-	   in_hiredate IN EMP.HIREDATE%TYPE,
-	   in_sal IN EMP.SAL%TYPE,
-	   in_comm IN EMP.COMM%TYPE,
-	   in_deptno IN EMP.DEPTNO%TYPE
+   in_empno IN EMP.EMPNO%TYPE,
+   in_ename IN EMP.ENAME%TYPE,
+   in_job IN EMP.JOB%TYPE,
+   in_mgr IN EMP.MGR%TYPE,
+   in_hiredate IN EMP.HIREDATE%TYPE,
+   in_sal IN EMP.SAL%TYPE,
+   in_comm IN EMP.COMM%TYPE,
+   in_deptno IN EMP.DEPTNO%TYPE
 )
 IS
 BEGIN
