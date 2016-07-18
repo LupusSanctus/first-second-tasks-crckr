@@ -49,6 +49,7 @@ public class RoverCommandParser {
                         
                         System.out.println("Debug: " + x + " " + y);                        
                         roverCommand = new MoveCommand(this.rover, x, y);
+                        //common execute doesn`t work
                         roverCommand.execute();
                         break;
                         
@@ -65,6 +66,7 @@ public class RoverCommandParser {
             } //else if
         } //while
         in.close();
+        //for common execute in rover class
         return roverCommand; 
         
     } //readNextCommand
