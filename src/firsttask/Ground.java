@@ -19,12 +19,12 @@ public class Ground {
     }
 
     public Ground(int len, int width) {
-        this.length = len;
+        length = len;
         this.width = width;
-        this.landscape = new GroundCell[this.length][this.width];
+        landscape = new GroundCell[length][this.width];
         
         for(int row = 0; row < length; row ++) {
-               for(int col = 0; col < width; col ++) {         
+               for(int col = 0; col < this.width; col ++) {         
                    landscape[row][col] = new GroundCell(row, col, CellState.FREE);
                }
         }

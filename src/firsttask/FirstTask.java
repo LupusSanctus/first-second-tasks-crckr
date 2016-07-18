@@ -3,10 +3,11 @@ package firsttask;
 public class FirstTask {
 
     public static void main(String[] args) {
-       //Debugger.isEnabled();
+        //Debugger.isEnabled();
         Rover rover = new Rover();
-        rover.getGround().setGround(new Ground(5, 5));
-        
+        rover.getGround().setGround(new Ground(10, 10));
+
         rover.executeProgramFile("command");
+        
     }
 }

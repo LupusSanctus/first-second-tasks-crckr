@@ -2,57 +2,70 @@ package firsttask;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.*; 
+
 
 public class RoverCommandParser {
     private Rover rover;
+    private BufferedReader in;
     
-    RoverCommandParser(Rover rover) {
+    public RoverCommandParser(Rover rover, String fileName) throws FileNotFoundException {
         this.rover = rover;
+        this.in = new BufferedReader(new FileReader(fileName));
     }
             
-    public RoverCommand readNextCommand(String command, String argument) {       
-        RoverCommand commands;
-        List<RoverCommand> commandList = new ArrayList<RoverCommand>();
-        LoggingCommand logging;
-        ImportCommand importCmd;
+    public RoverCommand readNextCommand() throws IOException {  
+        String buffer;
+        String columns[];
+        RoverCommand roverCommand = null;
+
+        while((buffer =  in.readLine()) != null) {
+            columns = buffer.split("\t");
+            if(columns[0].equals("import")) {
+                System.out.println("Debug: " + columns[0] + " " + columns[1]);
+                if (columns[1].equals("")) throw new ArrayStoreException("Invalid import arguments!");
+                roverCommand = new ImportCommand(this.rover, columns[0]);
+                roverCommand.execute();
+            } else if(!columns[0].startsWith("#")) {
+                System.out.println("Debug: " + columns[0] + " " + columns[1]);
+                String[] partsArgument;
+                columns[1] = columns[1].replaceAll("\\s+","");
+                
+                switch (columns[0]) {
+                    case "move":
+                        // check if move args contains number
+                        if(columns[1].matches(".*\\d+.*") && !columns[1].contains(",")) {
+                            System.out.println("Function argument has wrong format! Fix it and try again.");
+                            return null;
+                        } 
+                        partsArgument = columns[1].split(",");
+                        int x, y;
+                        x = Integer.parseInt(partsArgument[0]);
+                        y = Integer.parseInt(partsArgument[1]);
+                        
+                        System.out.println("Debug: " + x + " " + y);                        
+                        roverCommand = new MoveCommand(this.rover, x, y);
+                        roverCommand.execute();
+                        break;
+                        
+                    case "turn":
+                        Direction turnDirection = Direction.valueOf(columns[1]);
+                        roverCommand = new TurnCommand(rover, turnDirection);
+                        roverCommand.execute();
+                        break;
+                        
+                    default:
+                        System.out.println("No existing command in the current string!");
+                        return null;                        
+                } //switch
+            } //else if
+        } //while
+        in.close();
+        return roverCommand; 
         
-        String[] partsArgument;
-        argument = argument.replaceAll("\\s+","");
-        
-        // check if string contains number
-        if(argument.matches(".*\\d+.*") && !argument.contains(",")) {
-            System.out.println("Function argument has wrong format! Fix it and try again.");
-            return null;
-        }
-        
-        partsArgument = argument.split(",");
-             
-        switch(command) {
-            case "move":
-                commands = new MoveCommand(this.rover, Integer.parseInt(partsArgument[0]), Integer.parseInt(partsArgument[1]));
-                commandList.add(commands);
-                importCmd = new ImportCommand(commandList);
-                
-                // LoggingCommand
-                logging = new LoggingCommand(commands);
-                logging.execute();
-                
-                return importCmd;
-                
-            case "turn":
-                commands = new TurnCommand(this.rover, Direction.valueOf(argument));
-                commandList.add(commands);
-                importCmd = new ImportCommand(commandList);
-                
-                // LoggingCommand
-                logging = new LoggingCommand(commands);
-                logging.execute();
-                
-                return importCmd;
-                
-            default:
-                System.out.println("No existing command in the current string!");
-                return null;
-        }
-    }
+    } //readNextCommand
 }

@@ -1,5 +1,5 @@
 package firsttask;
 
 public interface Moveable {
-    void move(int a, int b);
+    void move(int x, int y);
 }

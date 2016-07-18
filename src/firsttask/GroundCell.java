@@ -5,9 +5,9 @@ public class GroundCell {
     private int x;
     private int y;
     
-    GroundCell(int row, int col, CellState state) {
-        this.x = row;
-        this.y = col;
+    public GroundCell(int row, int col, CellState state) {
+        x = row;
+        y = col;
         this.state = state;
     }
        
@@ -20,6 +20,6 @@ public class GroundCell {
     }
     
     public CellState getState() {
-        return this.state;
+        return state;
     }
 }

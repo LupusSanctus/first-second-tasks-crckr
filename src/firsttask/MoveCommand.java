@@ -7,14 +7,14 @@ public class MoveCommand implements RoverCommand {
     private int y;
     
     // advanced constructor version with movement coordinates
-    MoveCommand(Moveable move, int x, int y) {
-        this.roverMove = move;
+    public MoveCommand(Moveable move, int x, int y) {
+        roverMove = move;
         this.x = x;
         this.y = y;
     }
     
     @Override
     public void execute() {
-        this.roverMove.move(this.x, this.y);
+        roverMove.move(this.x, this.y);
     }  
 }

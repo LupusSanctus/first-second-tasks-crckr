@@ -7,8 +7,8 @@ public class GroundVisor {
         return ground;
     }
 
-    public void setGround(Ground grnd) {
-        this.ground = grnd;
+    public void setGround(Ground ground) {
+        this.ground = ground;
     }
     
     public boolean hasObstacles(int x, int y) {

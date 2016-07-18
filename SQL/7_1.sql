@@ -12,7 +12,7 @@ IS
 BEGIN
 
   INSERT INTO EMP ("EMPNO", "ENAME", "JOB", "MGR", "HIREDATE", "SAL", "COMM", "DEPTNO") 
-  VALUES (in_empno, in_ename, in_job, pin_mgr, in_hiredate, in_sal, in_comm, in_deptno);
+  VALUES (in_empno, in_ename, in_job, in_mgr, in_hiredate, in_sal, in_comm, in_deptno);
 
   COMMIT;
 
