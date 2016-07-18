@@ -1,0 +1,9 @@
+/* 4_10 */
+--1
+DROP INDEX indx ON CONTR_TEST
+
+--2
+DROP TABLE CONTR_TEST
+
+--3
+DROP VIEW contr_v;
