@@ -1,5 +1,6 @@
-<?xml version="1.0" ?>
-<move arg="3, 4">
-<turn arg="NORTH">
-<import filename="commands1">
-<move arg="2, 3">
+<?xml version="1.0" encoding="UTF-8"?>
+<rover>
+    <command type="move" arg="3, 4"></move>
+    <command type="turn" arg="NORTH"></turn>
+    <command type="import" filename="commands1.xml"></import>
+</rover>
