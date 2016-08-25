@@ -8,7 +8,6 @@ CREATE OR REPLACE FUNCTION update_region
 RETURNS VOID AS $$
 DECLARE
     department_num integer;
-   -- error_flag ;
 BEGIN
     
     SELECT deptno INTO STRICT department_num FROM dept WHERE loc = location;
